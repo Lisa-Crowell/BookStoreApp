@@ -5,7 +5,7 @@ using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connString = builder.Configuration.GetConnectionString("BookStoreAppDbConnection");
+var connString = builder.Configuration.GetConnectionString("BookStoreDbConnection");
 builder.Services.AddDbContext<BookStoreDbContext>(options => 
     options.UseMySql(connString, ServerVersion.AutoDetect(connString)));
 
