@@ -89,6 +89,44 @@ namespace BookStoreApp.API.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8344074e-8623-4e1a-b0c1-84fb8678x8he",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "773a8732-8966-442a-8fe5-7989c67cfdb6",
+                            Email = "admin@bookstore.com",
+                            EmailConfirmed = false,
+                            FirstName = "System",
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@BOOKSTORE.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKzix3piQpXZWoB5OurM9/4iJt3eyQ23bevvtpUUIiDXq0kh2GM8Ri1R6HAofdUsiw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "01f53cb8-0a37-434c-8e04-58e42177ad7f",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "8344074e-8623-4e1a-b0c1-84fb8678x8if",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "108cf5d2-c8da-43b2-a90b-400a177fca4a",
+                            Email = "user@bookstore.com",
+                            EmailConfirmed = false,
+                            FirstName = "System",
+                            LastName = "User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "USER@BOOKSTORE.COM",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKquysY+zJ9oGOMG1VYD5/PdzsloW/MKIirJRSd41qJhLgbAiiIHaO1GR0CXRiQ88Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "92183256-3efd-4f9c-887a-d4fce8728761",
+                            TwoFactorEnabled = false,
+                            UserName = "user"
+                        });
                 });
 
             modelBuilder.Entity("BookStoreApp.API.Data.Author", b =>
@@ -181,6 +219,22 @@ namespace BookStoreApp.API.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8344074e-8623-4e1a-b0c1-84fb8678x8fc",
+                            ConcurrencyStamp = "46bdda96-d4c8-415f-adcf-7791b7da7b7b",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "8344074e-8623-4e1a-b0c1-84fb8678x8gd",
+                            ConcurrencyStamp = "905dcc59-974c-45ff-b249-a543cb5b7c10",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -264,6 +318,18 @@ namespace BookStoreApp.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8he",
+                            RoleId = "8344074e-8623-4e1a-b0c1-84fb8678x8fc"
+                        },
+                        new
+                        {
+                            UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8if",
+                            RoleId = "8344074e-8623-4e1a-b0c1-84fb8678x8gd"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
