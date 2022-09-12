@@ -7,3 +7,5 @@ riderModule.iml
 *.json
 *.xml
 *.txt
+open-iconic/
+*.ico
