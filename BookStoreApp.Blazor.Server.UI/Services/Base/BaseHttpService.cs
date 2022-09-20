@@ -23,13 +23,16 @@ public class BaseHttpService
         {
             return new Response<Guid>() { Message = "The requested item could not be found.", IsSuccess = false };
         }
-        
+        if (apiException.StatusCode is >= 200 and <= 299)
+        {
+            return new Response<Guid>() { Message = "Operations reported success", IsSuccess = true };
+        }
         return new Response<Guid>() { Message = "Something went wrong, please try again later.", IsSuccess = false };
     }
 
     protected async Task GetBearerToken()
     {
-        var token = await _localStorage.GetItemAsStringAsync("accessToken");
+        var token = await _localStorage.GetItemAsync<string>("accessToken");
         if (token != null)
         {
             _client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

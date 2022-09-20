@@ -33,4 +33,20 @@ public class AuthorService : BaseHttpService, IAuthorService
 
         return response;
     }
+
+    public async Task<Response<int>> CreateAuthor(AuthorCreateDto author)
+    {
+        Response<int> response = new();
+        try
+        {
+            await GetBearerToken();
+            await _client.AuthorsPOSTAsync(author);
+        }
+        catch (ApiException exception)
+        {
+            response = ConvertApiExceptions<int>(exception);
+        }
+
+        return response;
+    }
 }
