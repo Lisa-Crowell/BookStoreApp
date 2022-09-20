@@ -77,7 +77,7 @@ namespace BookStoreApp.API.Controllers
 
             var author = await _context.Authors.FindAsync(id);
             
-            if ( author == null)
+            if (author == null)
             {
                 _logger.LogWarning($"{nameof(Author)} record not found in {nameof(PutAuthor)} id {id}.");
                 return NotFound();
@@ -90,7 +90,7 @@ namespace BookStoreApp.API.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!await AuthorExists(id))
                 {
@@ -98,7 +98,8 @@ namespace BookStoreApp.API.Controllers
                 }
                 else
                 {
-                    throw;
+                    _logger.LogError(ex, $"Error Performing lookup for {nameof(PutAuthor)}");
+                    return StatusCode(500, Messages.Error500Message);
                 }
             }
 
@@ -154,7 +155,7 @@ namespace BookStoreApp.API.Controllers
 
         private async Task<bool> AuthorExists(int id)
         {
-            return await _context.Authors?.AnyAsync(e => e.Id == id);
+            return await _context.Authors.AnyAsync(e => e.Id == id);
         }
     }
 }

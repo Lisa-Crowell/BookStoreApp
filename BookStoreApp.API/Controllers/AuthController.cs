@@ -65,10 +65,10 @@ public class AuthController : ControllerBase
     [Route("login")]
     public async Task<ActionResult<AuthResponse>> Login(LoginUserDto userDto)
     {
-        _logger.LogInformation($"Login Attempt for {userDto.UserName} ");
+        _logger.LogInformation($"Login Attempt for {userDto.Email} ");
         try
         {
-            var user = await _userManager.FindByNameAsync(userDto.UserName);
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
             var passwordValid = await _userManager.CheckPasswordAsync(user, userDto.Password);
 
             if (user == null || passwordValid == false)
@@ -80,11 +80,10 @@ public class AuthController : ControllerBase
             {
                 Email = userDto.Email,
                 UserId = user.Id,
-                Token = tokenString,
-                UserName = user.UserName
+                Token = tokenString
             };
 
-            return Accepted(response);
+            return response;
         }
         catch (Exception ex)
         {
@@ -109,8 +108,10 @@ public class AuthController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(CustomClaimTypes.Uid, user.Id)
-        }.Union(userClaims)
-            .Union(roleClaims);
+        }
+        .Union(userClaims)
+        .Union(roleClaims);
+        
         var token = new JwtSecurityToken(
             issuer: _config["JwtSettings:Issuer"],
             audience: _config["JwtSettings:Audience"],

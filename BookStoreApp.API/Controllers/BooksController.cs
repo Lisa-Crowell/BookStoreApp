@@ -14,13 +14,11 @@ namespace BookStoreApp.API.Controllers
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<BookStoreDbContext> _logger;
 
-        public BooksController(BookStoreDbContext context, IMapper mapper, ILogger<BookStoreDbContext> logger)
+        public BooksController(BookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _logger = logger;
         }
 
         // GET: api/Books
