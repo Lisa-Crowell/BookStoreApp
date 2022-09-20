@@ -16,6 +16,12 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group">
+            <label for="username">UserName</label>
+            <InputText class="form-control" @bind-Value="RegistrationModel.UserName" />
+            <ValidationMessage For="@(() => RegistrationModel.UserName)" />
+        </div>
+        <br/>
+        <div class="form-group">
             <label for="email">Email Address</label>
             <InputText class="form-control" @bind-Value="RegistrationModel.Email" />
             <ValidationMessage For="@(() => RegistrationModel.Email)" />
