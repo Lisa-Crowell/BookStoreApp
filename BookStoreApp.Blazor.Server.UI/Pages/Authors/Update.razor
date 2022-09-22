@@ -1,6 +1,9 @@
 @page "/authors/update/{Id:int}"
+@using BookStoreApp.Blazor.Server.UI.Static
 @inject IAuthorService _authorService
 @inject NavigationManager _navigationManager
+@attribute [Authorize(Roles = Roles.Administrator)]
+
 
 <h3>Update Author</h3>
 
@@ -40,7 +43,7 @@
     public int Id { get; set; }
     private AuthorUpdateDto Author = new AuthorUpdateDto();
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         var response = await _authorService.GetAuthorForUpdate(Id);
         if (response.IsSuccess)
