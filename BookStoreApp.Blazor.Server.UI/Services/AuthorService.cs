@@ -36,15 +36,15 @@ public class AuthorService : BaseHttpService, IAuthorService
         return response;
     }
 
-    public async Task<Response<AuthorReadOnlyDto>> GetAuthor(int id)
+    public async Task<Response<AuthorDetailsDto>> GetAuthor(int id)
     {
-        Response<AuthorReadOnlyDto> response;
+        Response<AuthorDetailsDto> response;
 
         try
         {
             await GetBearerToken();
             var data = await _client.AuthorsGETAsync(id);
-            response = new Response<AuthorReadOnlyDto>
+            response = new Response<AuthorDetailsDto>
             {
                 Data = data,
                 IsSuccess = true
@@ -52,7 +52,7 @@ public class AuthorService : BaseHttpService, IAuthorService
         }
         catch (ApiException exception)
         {
-            response = ConvertApiExceptions<AuthorReadOnlyDto>(exception);
+            response = ConvertApiExceptions<AuthorDetailsDto>(exception);
         }
 
         return response;
@@ -104,6 +104,23 @@ public class AuthorService : BaseHttpService, IAuthorService
         {
             await GetBearerToken();
             await _client.AuthorsPUTAsync(id, author);
+        }
+        catch (ApiException exception)
+        {
+            response = ConvertApiExceptions<int>(exception);
+        }
+
+        return response;
+    }
+
+    public async Task<Response<int>> DeleteAuthor(int id)
+    {
+        Response<int> response = new();
+
+        try
+        {
+            await GetBearerToken();
+            await _client.AuthorsDELETEAsync(id);
         }
         catch (ApiException exception)
         {

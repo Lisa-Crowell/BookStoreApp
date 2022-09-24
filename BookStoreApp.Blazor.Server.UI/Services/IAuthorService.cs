@@ -5,8 +5,9 @@ namespace BookStoreApp.Blazor.Server.UI.Services;
 public interface IAuthorService
 {
     Task<Response<List<AuthorReadOnlyDto>>> GetAuthor();
-    Task<Response<AuthorReadOnlyDto>> GetAuthor(int id);
+    Task<Response<AuthorDetailsDto>> GetAuthor(int id);
     Task<Response<AuthorUpdateDto>> GetAuthorForUpdate(int id);
     Task<Response<int>> CreateAuthor(AuthorCreateDto author);
     Task<Response<int>> EditAuthor(int id,AuthorUpdateDto author);
+    Task<Response<int>> DeleteAuthor(int id);
 }

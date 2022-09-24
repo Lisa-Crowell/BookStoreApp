@@ -34,11 +34,12 @@ public class AuthController : ControllerBase
     [Route("register")]
     public async Task<IActionResult> Register(UserDto userDto)
     {
-        _logger.LogInformation($"Registration Attempt for {userDto.Email} ");
+        _logger.LogInformation($"Registration Attempt for {userDto.UserName} ");
         try
         {
             var user = _mapper.Map<ApiUser>(userDto);
-            user.UserName = userDto.Email;
+            user.UserName = userDto.UserName;
+            user.Email = userDto.Email;
             var result = await _userManager.CreateAsync(user, userDto.Password);
 
             if (result.Succeeded == false)
@@ -69,6 +70,7 @@ public class AuthController : ControllerBase
         try
         {
             var user = await _userManager.FindByEmailAsync(userDto.Email);
+            
             var passwordValid = await _userManager.CheckPasswordAsync(user, userDto.Password);
 
             if (user == null || passwordValid == false)
@@ -80,10 +82,12 @@ public class AuthController : ControllerBase
             {
                 Email = userDto.Email,
                 UserId = user.Id,
-                Token = tokenString
+                Token = tokenString,
+                UserName = userDto.UserName
             };
 
             return response;
+            
         }
         catch (Exception ex)
         {
