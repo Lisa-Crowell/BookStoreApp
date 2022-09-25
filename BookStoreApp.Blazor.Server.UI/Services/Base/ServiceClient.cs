@@ -1258,6 +1258,9 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class BookCreateDto
     {
+        [Newtonsoft.Json.JsonProperty("authorId", Required = Newtonsoft.Json.Required.Always)]
+        public int AuthorId { get; set; }
+
         [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(55)]
@@ -1277,7 +1280,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
 
         [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0D, 2147483647D)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0, 2147483647)]
@@ -1307,7 +1310,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
         public string Image { get; set; }
 
         [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [Newtonsoft.Json.JsonProperty("authorId", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int AuthorId { get; set; }
@@ -1336,7 +1339,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
         public string Image { get; set; }
 
         [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public double? Price { get; set; }
+        public decimal Price { get; set; }
 
         [Newtonsoft.Json.JsonProperty("authorId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public int? AuthorId { get; set; }
@@ -1371,7 +1374,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
 
         [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0D, 2147483647D)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Range(0, 2147483647)]

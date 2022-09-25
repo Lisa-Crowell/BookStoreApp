@@ -15,18 +15,20 @@ var connString = builder.Configuration.GetConnectionString("BookStoreDbConnectio
 builder.Services.AddDbContext<BookStoreDbContext>(options => 
     options.UseMySql(connString, ServerVersion.AutoDetect(connString)));
 
-var configuration = new ConfigurationBuilder()
-    .AddEnvironmentVariables()
-    .AddCommandLine(args)
-    .AddJsonFile("appsettings.json")
-    .AddUserSecrets<Program>(true)
-    .Build();
+builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+// var configuration = new ConfigurationBuilder()
+//     .AddEnvironmentVariables()
+//     .AddCommandLine(args)
+//     .AddJsonFile("appsettings.json")
+//     .AddUserSecrets<Program>(true)
+//     .Build();
 
 builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BookStoreDbContext>();
 
-builder.Services.AddAutoMapper(typeof(MapperConfig));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -77,7 +79,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
