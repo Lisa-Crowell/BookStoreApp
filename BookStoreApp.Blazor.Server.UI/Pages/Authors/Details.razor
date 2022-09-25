@@ -1,0 +1,83 @@
+@page "/authors/details/{Id:int}"
+@inject IAuthorService AuthorService
+@inject NavigationManager NavigationManager
+
+<h3>Author Details</h3>
+
+<EditForm Model="Author">
+    <fieldset disabled="true">
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <InputText @bind-Value="Author.FirstName" class="form-control" id="firstname"/>
+            <ValidationMessage For="@(() => Author.FirstName)"/>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <InputText @bind-Value="Author.LastName" class="form-control" id="lastname"/>
+            <ValidationMessage For="@(() => Author.LastName)"/>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="bio">Biography</label>
+            <InputText @bind-Value="Author.Bio" class="form-control" id="bio"/>
+            <ValidationMessage For="@(() => Author.Bio)"/>
+        </div>
+        <br/>
+    </fieldset>
+    
+    @if (Author.Books == null || Author.Books.Any() == false)
+    {
+        <div class="alert alert-dismissible alert-secondary">
+            No books available for this author.
+        </div>
+    }
+    else
+    {
+        foreach (var book in Author.Books)
+        {
+            <div class="card" style="width:18rem;">
+                <img src="@book.Image" class="card-img-top" alt="@book.Title"/>
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title - @book.Price.ToString()</h5>
+                    <p class="card-text">@book.Summary</p>
+                    <a href="@($"/books/details/{book.Id}")" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        }
+    }
+    <button @onclick="GoToEdit" class="btn btn-warning">
+            <span class="oi oi-pencil"></span>
+            Edit Author
+        </button>
+    <button @onclick="BackToList" class="btn btn-outline-secondary">
+        <span class="oi oi-media-skip-backward"></span>
+        Back to List
+    </button>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private AuthorDetailsDto Author = new AuthorDetailsDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await AuthorService.GetAuthor(Id);
+        if (response.IsSuccess)
+        {
+            Author = response.Data;
+        }
+    }
+    
+    private void BackToList()
+    {
+        NavigationManager.NavigateTo("/authors/");
+    }
+    
+    private void GoToEdit()
+    {
+        NavigationManager.NavigateTo($"/authors/update/{Author.Id}");
+    }
+}

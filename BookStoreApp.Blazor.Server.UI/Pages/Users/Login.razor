@@ -9,10 +9,11 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class="form-group">
-            <label for="userName">User Name</label>
+            <label for="email">User Name</label>
             <InputText class="form-control" @bind-Value="LoginModel.UserName" />
             <ValidationMessage For="@(() => LoginModel.UserName)" />
         </div>
+        <br/>
         <div class="form-group">
             <label for="email">Email Address</label>
             <InputText class="form-control" @bind-Value="LoginModel.Email" />
@@ -48,6 +49,7 @@
         {
             if (ex.StatusCode is >= 200 and <= 299)
             {
+                navigationManager.NavigateTo("/");
                 // _message = "Login Successful";
             }
             
