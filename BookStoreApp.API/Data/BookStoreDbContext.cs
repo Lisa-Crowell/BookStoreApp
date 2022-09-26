@@ -93,12 +93,12 @@ public partial class BookStoreDbContext : IdentityDbContext<ApiUser>
             new IdentityUserRole<string>
             {
                 RoleId = "8344074e-8623-4e1a-b0c1-84fb8678x8fc",
-                UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8he"
+                UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8if"
             },
             new IdentityUserRole<string>
             {
                 RoleId = "8344074e-8623-4e1a-b0c1-84fb8678x8gd",
-                UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8if"
+                UserId = "8344074e-8623-4e1a-b0c1-84fb8678x8he"
             }
         );
             
