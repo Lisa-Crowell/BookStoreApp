@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreApp.API.Models.User;
 
+[Index("IX_Email",  IsUnique = true)]
+[Index("IX_UserName",  IsUnique = true)]
 public class LoginUserDto
 {
     [Required]
