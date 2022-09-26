@@ -69,6 +69,18 @@ namespace BookStoreApp.API.Controllers
                 return NotFound();
             }
 
+            if (string.IsNullOrEmpty(bookUpdateDto.ImageData) == false)
+            {
+                bookUpdateDto.ImageData = CreateFile(bookUpdateDto.ImageData, bookUpdateDto.OriginalImageName);
+
+                var imageName = Path.GetFileName(book.Image);
+                var imagePath = $"{_webHostEnvironment.WebRootPath}\\BookCoverImages\\{imageName}";
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
             _mapper.Map(bookUpdateDto, book);
             _context.Entry(bookUpdateDto).State = EntityState.Modified;
 
@@ -97,7 +109,9 @@ namespace BookStoreApp.API.Controllers
         [Authorize (Roles = "Administrator")]
         public async Task<ActionResult<BookCreateDto>> PostBook(BookCreateDto bookCreateDto)
         {
+            Console.WriteLine(bookCreateDto);
             var book = _mapper.Map<Book>(bookCreateDto);
+            
             book.Image = CreateFile(bookCreateDto.ImageData, bookCreateDto.OriginalImageName);
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
