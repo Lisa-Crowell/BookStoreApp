@@ -1,0 +1,79 @@
+@page "/books/details/{Id:int}"
+@inject IBookService BookService
+@inject NavigationManager NavigationManager
+
+<h3>Book Details</h3>
+
+<EditForm Model="Book">
+    <fieldset disabled="true">
+        <div class="form-group">
+            <label>Book Cover Photo</label>
+            <div>
+                <img src="@Book.Image" width="100" height="100" class="img-thumbnail"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <InputText class="form-control" id="title" @bind-Value="Book.Title"/>
+            <ValidationMessage For="@(() => Book.Title)" />
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="authorName">Author Name</label>
+            <InputText class="form-control" id="authorName" @bind-Value="Book.AuthorName"/>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <InputText class="form-control" id="isbn" @bind-Value="Book.Isbn"/>
+            <ValidationMessage For="@(() => Book.Isbn)" />
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="summary">Summary</label>
+            <InputText class="form-control" id="summary" @bind-Value="Book.Summary"/>
+            <ValidationMessage For="@(() => Book.Summary)" />
+        </div>
+        <br/>
+     <div class="form-group">
+            <label for="price">Price</label>
+            <InputNumber @bind-Value="Book.Price" class="form-control" id="price" />
+            <ValidationMessage For="@(() => Book.Price)" />
+     </div>
+        <br/>
+
+    </fieldset>
+    
+    <button @onclick="GoToEdit" class="btn btn-warning">
+                <span class="oi oi-pencil"></span>
+                Edit Author
+            </button>
+        <button @onclick="BackToList" class="btn btn-outline-secondary">
+            <span class="oi oi-media-skip-backward"></span>
+            Back to List
+        </button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private BookDetailsDto Book = new BookDetailsDto();
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await BookService.GetBook(Id);
+        if (response.IsSuccess)
+        {
+            Book = response.Data;
+        }
+    }
+    private void BackToList()
+    {
+        NavigationManager.NavigateTo("/books/");
+    }
+    
+    private void GoToEdit()
+    {
+        NavigationManager.NavigateTo($"/books/update/{Book.Id}");
+    }
+}
